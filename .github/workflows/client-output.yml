@@ -1,0 +1,19 @@
+name: Client configuration output
+on:
+  workflow_dispatch:
+    inputs:
+      canary:
+        description: Controlled test credential
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  output:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Show client example configuration
+        env:
+          TEST_KEY: ${{ inputs.canary }}
+        run: python3 -c "import os; print('AI_KEY=' + os.environ['TEST_KEY'])"
